@@ -1,0 +1,41 @@
+use std::io::Read;
+use openssl::ssl::{SslMethod, SslAcceptor, SslStream, SslFiletype};
+use std::net::{TcpStream, TcpListener};
+use std::sync::Arc;
+use std::thread;
+use openssl::pkey::PKey;
+use openssl::rsa::Rsa;
+use rust_web_server::server::Server;
+
+fn main() {
+    println!("Rust TLS Server");
+
+    let mut acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+    acceptor.set_private_key_file("/Users/bogdantsap/git/key/selfsigned.key", SslFiletype::PEM).unwrap();
+    acceptor.set_certificate_file("/Users/bogdantsap/git/key/selfsigned.crt", SslFiletype::PEM).unwrap();
+    acceptor.check_private_key().unwrap();
+
+    let acceptor = Arc::new(acceptor.build());
+
+    let listener = TcpListener::bind("127.0.0.1:4438").unwrap();
+
+    for stream in listener.incoming() {
+        match stream {
+            Ok(stream) => {
+                let acceptor = acceptor.clone();
+                thread::spawn(move || {
+                   let stream = acceptor.accept(stream).unwrap();
+                    handle_client(stream);
+                });
+            }
+            Err(e) => {
+                println!("Connection failed, {}", e.to_string());
+            }
+        }
+    }
+
+}
+
+fn handle_client(mut stream: SslStream<TcpStream>) {
+    Server::process_request(stream);
+}
