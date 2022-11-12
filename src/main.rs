@@ -1,14 +1,11 @@
-use std::io::Read;
 use openssl::ssl::{SslMethod, SslAcceptor, SslStream, SslFiletype};
 use std::net::{TcpStream, TcpListener};
 use std::sync::Arc;
 use std::thread;
-use openssl::pkey::PKey;
-use openssl::rsa::Rsa;
 use rust_web_server::server::Server;
 
 fn main() {
-    println!("Rust TLS Server");
+    println!("Rust TLS Server | Draft | Work in Progress");
 
     let mut acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
 
@@ -38,6 +35,6 @@ fn main() {
 
 }
 
-fn handle_client(mut stream: SslStream<TcpStream>) {
+fn handle_client(stream: SslStream<TcpStream>) {
     Server::process_request(stream);
 }
