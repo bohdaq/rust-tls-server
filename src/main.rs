@@ -11,6 +11,8 @@ fn main() {
     println!("Rust TLS Server");
 
     let mut acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+
+    // DO NOT PUT KEY AND CERTIFICATE IN THE FOLDER WHERE YOU ARE RUNNING SERVER!!!
     acceptor.set_private_key_file("/Users/bogdantsap/git/key/selfsigned.key", SslFiletype::PEM).unwrap();
     acceptor.set_certificate_file("/Users/bogdantsap/git/key/selfsigned.crt", SslFiletype::PEM).unwrap();
     acceptor.check_private_key().unwrap();
