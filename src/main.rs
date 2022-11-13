@@ -84,6 +84,11 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
         value: "default-src https:".to_string()
     });
 
+    response.headers.push(Header {
+        name: "Strict-Transport-Security".to_string(),
+        value: "max-age=15768000".to_string()
+    });
+
     let raw_response = Response::generate_response(response, request);
 
     let boxed_stream = stream.write(raw_response.borrow());
