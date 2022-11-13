@@ -1,7 +1,12 @@
+use std::borrow::Borrow;
+use std::io::{Read, Write};
 use openssl::ssl::{SslMethod, SslAcceptor, SslStream, SslFiletype};
 use std::net::{TcpStream, TcpListener};
 use std::sync::Arc;
 use std::thread;
+use rust_web_server::app::App;
+use rust_web_server::request::Request;
+use rust_web_server::response::Response;
 use rust_web_server::server::Server;
 
 fn main() {
@@ -35,6 +40,45 @@ fn main() {
 
 }
 
-fn handle_client(stream: SslStream<TcpStream>) {
-    Server::process_request(stream);
+fn handle_client(mut stream: SslStream<TcpStream>) {
+    let mut buffer :[u8; 1024] = [0; 1024];
+    let boxed_read = stream.read(&mut buffer);
+    if boxed_read.is_err() {
+        eprintln!("unable to read TCP stream {}", boxed_read.as_ref().err().unwrap());
+
+        let raw_response = Server::bad_request_response();
+        let boxed_stream = stream.write(raw_response.borrow());
+        if boxed_stream.is_ok() {
+            stream.flush().unwrap();
+        };
+        raw_response;
+    }
+
+    boxed_read.unwrap();
+    let request : &[u8] = &buffer;
+
+
+    let boxed_request = Request::parse_request(request);
+    if boxed_request.is_err() {
+        eprintln!("unable to parse request: {}", boxed_request.as_ref().err().unwrap());
+
+        let raw_response = Server::bad_request_response();
+        let boxed_stream = stream.write(raw_response.borrow());
+        if boxed_stream.is_ok() {
+            stream.flush().unwrap();
+        };
+        raw_response;
+    }
+
+
+    let request: Request = boxed_request.unwrap();
+    let (response, request) = App::handle_request(request);
+    let raw_response = Response::generate_response(response, request);
+
+    let boxed_stream = stream.write(raw_response.borrow());
+    if boxed_stream.is_ok() {
+        stream.flush().unwrap();
+    };
+
+    raw_response;
 }
