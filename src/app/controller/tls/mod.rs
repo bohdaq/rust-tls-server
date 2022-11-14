@@ -7,11 +7,11 @@ use rust_web_server::symbol::SYMBOL;
 pub struct TlsController;
 
 impl TlsController {
-    pub const PRIVATE_KEY_FILEPATH: &'static str = "private_key";
-    pub const CERTIFICATE_FILEPATH: &'static str = "certificate";
+    pub const PRIVATE_KEY: &'static str = "private.key";
+    pub const CERTIFICATE: &'static str = "certificate.crt";
 
     pub fn is_matching_request(request: &Request) -> bool {
-        let private_key_path = [SYMBOL.slash, TlsController::PRIVATE_KEY_FILEPATH].join("");
+        let private_key_path = [SYMBOL.slash, TlsController::PRIVATE_KEY].join("");
         request.request_uri == private_key_path
     }
 
