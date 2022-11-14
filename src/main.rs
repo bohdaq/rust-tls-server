@@ -24,7 +24,6 @@ fn main() {
     println!("{}", certificate.serialize_pem().unwrap());
 
 
-    // DO NOT PUT KEY AND CERTIFICATE IN THE FOLDER WHERE YOU ARE RUNNING SERVER!!!
     acceptor.set_private_key_file("/Users/bogdantsap/git/rust-tls-server/private.key", SslFiletype::PEM).unwrap();
     acceptor.set_certificate_file("/Users/bogdantsap/git/rust-tls-server/certificate.crt", SslFiletype::PEM).unwrap();
     acceptor.check_private_key().unwrap();
