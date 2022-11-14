@@ -12,9 +12,7 @@ impl TlsController {
 
     pub fn is_matching_request(request: &Request) -> bool {
         let private_key_path = [SYMBOL.slash, TlsController::PRIVATE_KEY_FILEPATH].join("");
-        let certificate_path = [SYMBOL.slash, TlsController::CERTIFICATE_FILEPATH].join("");
-
-        request.request_uri == private_key_path || request.request_uri == certificate_path
+        request.request_uri == private_key_path
     }
 
     pub fn process_request(_request: &Request, mut response: Response) -> Response {
