@@ -1,9 +1,12 @@
+mod controller;
+
 use rust_web_server::app::controller::index::IndexController;
 use rust_web_server::app::controller::not_found::NotFoundController;
 use rust_web_server::app::controller::static_resource::StaticResourceController;
 use rust_web_server::header::Header;
 use rust_web_server::request::Request;
 use rust_web_server::response::{Response, STATUS_CODE_REASON_PHRASE};
+use crate::app::controller::tls::TlsController;
 
 pub struct App {}
 
@@ -18,6 +21,10 @@ impl App {
         );
 
 
+        if TlsController::is_matching_request(&request) {
+            response = TlsController::process_request(&request, response);
+            return (response, request)
+        }
 
         if IndexController::is_matching_request(&request) {
             response = IndexController::process_request(&request, response);
