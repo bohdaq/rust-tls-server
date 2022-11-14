@@ -1,6 +1,7 @@
 use std::borrow::Borrow;
 use std::io::{Read, Write};
 use openssl::ssl::{SslMethod, SslAcceptor, SslStream, SslFiletype};
+use rcgen::generate_simple_self_signed;
 use std::net::{TcpStream, TcpListener};
 use std::sync::Arc;
 use std::thread;
@@ -14,6 +15,12 @@ fn main() {
     println!("Rust TLS Server | Draft | Work in Progress");
 
     let mut acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+
+    let subject_name = ["localhost".to_string()];
+    let certificate = generate_simple_self_signed(subject_name).unwrap();
+    println!("{}", certificate.serialize_private_key_pem());
+    println!("{}", certificate.serialize_pem().unwrap());
+
 
     // DO NOT PUT KEY AND CERTIFICATE IN THE FOLDER WHERE YOU ARE RUNNING SERVER!!!
     acceptor.set_private_key_file("/Users/bogdantsap/git/key/selfsigned.key", SslFiletype::PEM).unwrap();
