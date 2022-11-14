@@ -1,3 +1,5 @@
+mod app;
+
 use std::borrow::Borrow;
 use std::io::{Read, Write};
 use openssl::ssl::{SslMethod, SslAcceptor, SslStream, SslFiletype};
