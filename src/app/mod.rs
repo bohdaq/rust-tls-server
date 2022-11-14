@@ -1,4 +1,4 @@
-mod controller;
+pub mod controller;
 
 use rust_web_server::app::controller::index::IndexController;
 use rust_web_server::app::controller::not_found::NotFoundController;

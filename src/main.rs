@@ -7,11 +7,14 @@ use rcgen::generate_simple_self_signed;
 use std::net::{TcpStream, TcpListener};
 use std::sync::Arc;
 use std::thread;
+use rust_web_server::ext::file_ext::FileExt;
 use rust_web_server::header::Header;
 use rust_web_server::request::Request;
 use rust_web_server::response::Response;
 use rust_web_server::server::Server;
+use rust_web_server::symbol::SYMBOL;
 use crate::app::App;
+use crate::app::controller::tls::TlsController;
 
 fn main() {
     println!("Rust TLS Server | Draft | Work in Progress");
@@ -23,9 +26,15 @@ fn main() {
     println!("{}", certificate.serialize_private_key_pem());
     println!("{}", certificate.serialize_pem().unwrap());
 
+    let slash_private_key = [SYMBOL.slash, TlsController::PRIVATE_KEY].join("");
+    let private_key_path = FileExt::get_static_filepath(&slash_private_key).unwrap();
 
-    acceptor.set_private_key_file("/Users/bogdantsap/git/rust-tls-server/private.key", SslFiletype::PEM).unwrap();
-    acceptor.set_certificate_file("/Users/bogdantsap/git/rust-tls-server/certificate.crt", SslFiletype::PEM).unwrap();
+    let slash_certificate = [SYMBOL.slash, TlsController::CERTIFICATE].join("");
+    let certificate_path = FileExt::get_static_filepath(&slash_certificate).unwrap();
+
+
+    acceptor.set_private_key_file(private_key_path, SslFiletype::PEM).unwrap();
+    acceptor.set_certificate_file(certificate_path, SslFiletype::PEM).unwrap();
     acceptor.check_private_key().unwrap();
 
     let acceptor = Arc::new(acceptor.build());
