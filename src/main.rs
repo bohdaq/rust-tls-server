@@ -103,12 +103,12 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
 
 
     response.headers.push(Header {
-        name: "Content-Security-Policy".to_string(),
+        name: Header::_CONTENT_SECURITY_POLICY.to_string(),
         value: "default-src https:".to_string()
     });
 
     response.headers.push(Header {
-        name: "Strict-Transport-Security".to_string(),
+        name: Header::_STRICT_TRANSPORT_SECURITY.to_string(),
         value: "max-age=15768000".to_string()
     });
 
