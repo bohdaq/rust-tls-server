@@ -43,7 +43,7 @@ fn main() {
     let acceptor = Arc::new(acceptor.build());
 
     let (ip, port, thread_count) = get_ip_port_thread_count();
-    let bind_addr = [ip, ":".to_string(), port.to_string()].join(SYMBOL.empty_string);
+    let bind_addr = [ip, SYMBOL.colon.to_string(), port.to_string()].join(SYMBOL.empty_string);
     let listener = TcpListener::bind(bind_addr).unwrap();
     let pool = ThreadPool::new(thread_count as usize);
 
@@ -97,7 +97,7 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
     let (mut response, request) = App::handle_request(request);
 
     response.headers.push(Header {
-        name: "Referrer-Policy".to_string(),
+        name: Header::_REFERRER_POLICY.to_string(),
         value: "no-referrer, strict-origin-when-cross-origin".to_string()
     });
 
