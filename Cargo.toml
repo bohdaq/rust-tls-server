@@ -9,3 +9,4 @@ edition = "2021"
 openssl = { version="0.10.42", features = ["vendored"] }
 rust-web-server = "2.0.0"
 rcgen = "0.10.0"
+file-ext = "2.0.0"

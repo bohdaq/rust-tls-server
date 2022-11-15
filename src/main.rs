@@ -7,7 +7,7 @@ use rcgen::generate_simple_self_signed;
 use std::net::{TcpStream, TcpListener};
 use std::sync::Arc;
 use std::thread;
-use rust_web_server::ext::file_ext::FileExt;
+use file_ext::FileExt;
 use rust_web_server::header::Header;
 use rust_web_server::request::Request;
 use rust_web_server::response::Response;
@@ -23,14 +23,15 @@ fn main() {
 
     let subject_name = ["localhost".to_string()];
     let certificate = generate_simple_self_signed(subject_name).unwrap();
-    println!("{}", certificate.serialize_private_key_pem());
-    println!("{}", certificate.serialize_pem().unwrap());
 
     let slash_private_key = [SYMBOL.slash, TlsController::PRIVATE_KEY].join("");
     let private_key_path = FileExt::get_static_filepath(&slash_private_key).unwrap();
+    FileExt::read_or_create_and_write(&private_key_path, certificate.serialize_private_key_pem().as_bytes()).unwrap();
+
 
     let slash_certificate = [SYMBOL.slash, TlsController::CERTIFICATE].join("");
     let certificate_path = FileExt::get_static_filepath(&slash_certificate).unwrap();
+    FileExt::read_or_create_and_write(&certificate_path, certificate.serialize_pem().unwrap().as_bytes()).unwrap();
 
 
     acceptor.set_private_key_file(private_key_path, SslFiletype::PEM).unwrap();

@@ -1,3 +1,5 @@
+private.key
+certificate.crt
 .idea
 Cargo.lock
 /target
