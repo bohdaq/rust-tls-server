@@ -6,18 +6,20 @@ use openssl::ssl::{SslMethod, SslAcceptor, SslStream, SslFiletype};
 use rcgen::generate_simple_self_signed;
 use std::net::{TcpStream, TcpListener};
 use std::sync::Arc;
-use std::thread;
 use file_ext::FileExt;
+use rust_web_server::entry_point::{bootstrap, get_ip_port_thread_count};
 use rust_web_server::header::Header;
 use rust_web_server::request::Request;
 use rust_web_server::response::Response;
 use rust_web_server::server::Server;
 use rust_web_server::symbol::SYMBOL;
+use rust_web_server::thread_pool::ThreadPool;
 use crate::app::App;
 use crate::app::controller::tls::TlsController;
 
 fn main() {
     println!("Rust TLS Server | Draft | Work in Progress");
+    bootstrap();
 
     let mut acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
 
@@ -40,14 +42,17 @@ fn main() {
 
     let acceptor = Arc::new(acceptor.build());
 
-    let listener = TcpListener::bind("127.0.0.1:4438").unwrap();
+    let (ip, port, thread_count) = get_ip_port_thread_count();
+    let bind_addr = [ip, ":".to_string(), port.to_string()].join(SYMBOL.empty_string);
+    let listener = TcpListener::bind(bind_addr).unwrap();
+    let pool = ThreadPool::new(thread_count as usize);
 
     for stream in listener.incoming() {
         match stream {
             Ok(stream) => {
                 let acceptor = acceptor.clone();
-                thread::spawn(move || {
-                   let stream = acceptor.accept(stream).unwrap();
+                pool.execute(move || {
+                    let stream = acceptor.accept(stream).unwrap();
                     handle_client(stream);
                 });
             }
