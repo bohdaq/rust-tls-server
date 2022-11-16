@@ -24,6 +24,7 @@ fn main() {
     let boxed_acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls());
     if boxed_acceptor.is_err() {
         println!("{}", boxed_acceptor.as_ref().err().unwrap().to_string());
+        return;
     }
     let mut acceptor = boxed_acceptor.unwrap();
 
@@ -32,6 +33,7 @@ fn main() {
     let boxed_certificate = generate_simple_self_signed(subject_name);
     if boxed_certificate.is_err() {
         println!("{}", boxed_certificate.as_ref().err().unwrap().to_string());
+        return;
     }
     let certificate = boxed_certificate.unwrap();
 
@@ -40,8 +42,9 @@ fn main() {
     let boxed_private_key_path = FileExt::get_static_filepath(&slash_private_key);
     if boxed_private_key_path.is_err() {
         println!("{}", boxed_private_key_path.as_ref().err().unwrap().to_string());
+        return;
     }
-    let private_key_path = boxed_private_key_path.unwrap();
+    let private_key_path = boxed_private_key_path.as_ref().unwrap();
     FileExt::read_or_create_and_write(&private_key_path, certificate.serialize_private_key_pem().as_bytes()).unwrap();
 
 
@@ -49,9 +52,17 @@ fn main() {
     let boxed_certificate_path = FileExt::get_static_filepath(&slash_certificate);
     if boxed_certificate_path.is_err() {
         println!("{}", boxed_certificate_path.as_ref().err().unwrap().to_string());
+        return;
     }
     let certificate_path = boxed_certificate_path.unwrap();
-    FileExt::read_or_create_and_write(&certificate_path, certificate.serialize_pem().unwrap().as_bytes()).unwrap();
+    let boxed_serialized_certificate = certificate.serialize_pem();
+    if boxed_serialized_certificate.is_err() {
+        println!("{}", boxed_serialized_certificate.err().unwrap().to_string());
+        return;
+    }
+
+    let serialized_certificate = boxed_serialized_certificate.unwrap();
+    FileExt::read_or_create_and_write(&certificate_path, serialized_certificate.as_bytes()).unwrap();
 
 
     acceptor.set_private_key_file(private_key_path, SslFiletype::PEM).unwrap();
