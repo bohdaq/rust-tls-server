@@ -21,13 +21,27 @@ fn main() {
     println!("Rust TLS Server | Draft | Work in Progress");
     bootstrap();
 
-    let mut acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+    let boxed_acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls());
+    if boxed_acceptor.is_err() {
+        println!("{}", boxed_acceptor.as_ref().err().unwrap().to_string());
+    }
+    let mut acceptor = boxed_acceptor.unwrap();
 
     let subject_name = ["localhost".to_string()];
-    let certificate = generate_simple_self_signed(subject_name).unwrap();
+
+    let boxed_certificate = generate_simple_self_signed(subject_name);
+    if boxed_certificate.is_err() {
+        println!("{}", boxed_certificate.as_ref().err().unwrap().to_string());
+    }
+    let certificate = boxed_certificate.unwrap();
 
     let slash_private_key = [SYMBOL.slash, TlsController::PRIVATE_KEY].join("");
-    let private_key_path = FileExt::get_static_filepath(&slash_private_key).unwrap();
+
+    let boxed_private_key_path = FileExt::get_static_filepath(&slash_private_key);
+    if boxed_private_key_path.is_err() {
+        println!("{}", boxed_private_key_path.as_ref().err().unwrap().to_string());
+    }
+    let private_key_path = boxed_private_key_path.unwrap();
     FileExt::read_or_create_and_write(&private_key_path, certificate.serialize_private_key_pem().as_bytes()).unwrap();
 
 
