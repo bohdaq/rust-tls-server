@@ -46,7 +46,11 @@ fn main() {
 
 
     let slash_certificate = [SYMBOL.slash, TlsController::CERTIFICATE].join("");
-    let certificate_path = FileExt::get_static_filepath(&slash_certificate).unwrap();
+    let boxed_certificate_path = FileExt::get_static_filepath(&slash_certificate);
+    if boxed_certificate_path.is_err() {
+        println!("{}", boxed_certificate_path.as_ref().err().unwrap().to_string());
+    }
+    let certificate_path = boxed_certificate_path.unwrap();
     FileExt::read_or_create_and_write(&certificate_path, certificate.serialize_pem().unwrap().as_bytes()).unwrap();
 
 
