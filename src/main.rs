@@ -45,8 +45,11 @@ fn main() {
         return;
     }
     let private_key_path = boxed_private_key_path.as_ref().unwrap();
-    FileExt::read_or_create_and_write(&private_key_path, certificate.serialize_private_key_pem().as_bytes()).unwrap();
-
+    let boxed_read_or_write = FileExt::read_or_create_and_write(&private_key_path, certificate.serialize_private_key_pem().as_bytes());
+    if boxed_read_or_write.is_err() {
+        println!("{}", boxed_read_or_write.as_ref().err().unwrap().to_string());
+        return;
+    }
 
     let slash_certificate = [SYMBOL.slash, TlsController::CERTIFICATE].join("");
     let boxed_certificate_path = FileExt::get_static_filepath(&slash_certificate);
@@ -62,8 +65,11 @@ fn main() {
     }
 
     let serialized_certificate = boxed_serialized_certificate.unwrap();
-    FileExt::read_or_create_and_write(&certificate_path, serialized_certificate.as_bytes()).unwrap();
-
+    let boxed_read_or_write = FileExt::read_or_create_and_write(&certificate_path, serialized_certificate.as_bytes());
+    if boxed_read_or_write.is_err() {
+        println!("{}", boxed_read_or_write.err().unwrap().to_string());
+        return;
+    }
 
     acceptor.set_private_key_file(private_key_path, SslFiletype::PEM).unwrap();
     acceptor.set_certificate_file(certificate_path, SslFiletype::PEM).unwrap();
