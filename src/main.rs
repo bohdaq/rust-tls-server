@@ -71,9 +71,26 @@ fn main() {
         return;
     }
 
-    acceptor.set_private_key_file(private_key_path, SslFiletype::PEM).unwrap();
-    acceptor.set_certificate_file(certificate_path, SslFiletype::PEM).unwrap();
-    acceptor.check_private_key().unwrap();
+    let boxed_private_key_set = acceptor.set_private_key_file(private_key_path, SslFiletype::PEM);
+    if boxed_private_key_set.is_err() {
+        println!("{}", boxed_private_key_set.err().unwrap().to_string());
+        return;
+    }
+    boxed_private_key_set.unwrap();
+
+    let boxed_certificate_set = acceptor.set_certificate_file(certificate_path, SslFiletype::PEM);
+    if boxed_certificate_set.is_err() {
+        println!("{}", boxed_certificate_set.err().unwrap().to_string());
+        return;
+    }
+    boxed_certificate_set.unwrap();
+
+    let boxed_check = acceptor.check_private_key();
+    if boxed_check.is_err() {
+        println!("{}", boxed_check.err().unwrap().to_string());
+        return;
+    }
+    boxed_check.unwrap();
 
     let acceptor = Arc::new(acceptor.build());
 
