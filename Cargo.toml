@@ -7,6 +7,6 @@ edition = "2021"
 
 [dependencies]
 openssl = { version="0.10.42", features = ["vendored"] }
-rust-web-server = "3.0.0"
+rust-web-server = "4.0.0"
 rcgen = "0.10.0"
 file-ext = "2.0.0"
