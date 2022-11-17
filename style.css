@@ -17,3 +17,7 @@ div {
 .accent {
     color: red;
 }
+
+div.container {
+    max-width: 35em;
+}
