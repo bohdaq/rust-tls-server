@@ -96,7 +96,13 @@ fn main() {
 
     let (ip, port, thread_count) = get_ip_port_thread_count();
     let bind_addr = [ip, SYMBOL.colon.to_string(), port.to_string()].join(SYMBOL.empty_string);
-    let listener = TcpListener::bind(bind_addr).unwrap();
+
+    let boxed_listener = TcpListener::bind(bind_addr);
+    if boxed_listener.is_err() {
+        println!("{}", boxed_listener.err().unwrap().to_string());
+        return;
+    }
+    let listener = boxed_listener.unwrap();
     let pool = ThreadPool::new(thread_count as usize);
 
     for stream in listener.incoming() {
@@ -104,7 +110,12 @@ fn main() {
             Ok(stream) => {
                 let acceptor = acceptor.clone();
                 pool.execute(move || {
-                    let stream = acceptor.accept(stream).unwrap();
+                    let boxed_accept = acceptor.accept(stream);
+                    if boxed_accept.is_err() {
+                        println!("{}", boxed_accept.err().unwrap().to_string());
+                        return;
+                    }
+                    let stream = boxed_accept.unwrap();
                     handle_client(stream);
                 });
             }
