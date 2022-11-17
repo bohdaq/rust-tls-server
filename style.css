@@ -7,6 +7,29 @@
     a {
         color: aqua;
     }
+
+    .accent {
+        color: red;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    html, body {
+        background-color: whitesmoke;
+        font-family: Roboto, sans-serif;
+        color: grey;
+    }
+    a {
+        color: darkorange;
+    }
+
+    h1, h2 {
+        color: orange;
+    }
+
+    .accent {
+        color: orangered;
+    }
 }
 
 h1 {
@@ -20,10 +43,6 @@ h2 {
 div {
     font-size: 1.2em;
     margin-top: 1em;
-}
-
-.accent {
-    color: red;
 }
 
 div.container {
