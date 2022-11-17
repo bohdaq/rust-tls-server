@@ -179,7 +179,12 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
 
     let boxed_stream = stream.write(raw_response.borrow());
     if boxed_stream.is_ok() {
-        stream.flush().unwrap();
+        let boxed_flush = stream.flush();
+        if boxed_flush.is_err() {
+            println!("{}", boxed_flush.err().unwrap().to_string());
+            return;
+        }
+        boxed_flush.unwrap();
     };
 
 }
