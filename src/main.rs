@@ -23,7 +23,7 @@ fn main() {
 
     let boxed_acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls());
     if boxed_acceptor.is_err() {
-        println!("{}", boxed_acceptor.as_ref().err().unwrap().to_string());
+        eprintln!("{}", boxed_acceptor.as_ref().err().unwrap().to_string());
         return;
     }
     let mut acceptor = boxed_acceptor.unwrap();
@@ -32,7 +32,7 @@ fn main() {
 
     let boxed_certificate = generate_simple_self_signed(subject_name);
     if boxed_certificate.is_err() {
-        println!("{}", boxed_certificate.as_ref().err().unwrap().to_string());
+        eprintln!("{}", boxed_certificate.as_ref().err().unwrap().to_string());
         return;
     }
     let certificate = boxed_certificate.unwrap();
@@ -41,53 +41,53 @@ fn main() {
 
     let boxed_private_key_path = FileExt::get_static_filepath(&slash_private_key);
     if boxed_private_key_path.is_err() {
-        println!("{}", boxed_private_key_path.as_ref().err().unwrap().to_string());
+        eprintln!("{}", boxed_private_key_path.as_ref().err().unwrap().to_string());
         return;
     }
     let private_key_path = boxed_private_key_path.as_ref().unwrap();
     let boxed_read_or_write = FileExt::read_or_create_and_write(&private_key_path, certificate.serialize_private_key_pem().as_bytes());
     if boxed_read_or_write.is_err() {
-        println!("{}", boxed_read_or_write.as_ref().err().unwrap().to_string());
+        eprintln!("{}", boxed_read_or_write.as_ref().err().unwrap().to_string());
         return;
     }
 
     let slash_certificate = [SYMBOL.slash, TlsController::CERTIFICATE].join("");
     let boxed_certificate_path = FileExt::get_static_filepath(&slash_certificate);
     if boxed_certificate_path.is_err() {
-        println!("{}", boxed_certificate_path.as_ref().err().unwrap().to_string());
+        eprintln!("{}", boxed_certificate_path.as_ref().err().unwrap().to_string());
         return;
     }
     let certificate_path = boxed_certificate_path.unwrap();
     let boxed_serialized_certificate = certificate.serialize_pem();
     if boxed_serialized_certificate.is_err() {
-        println!("{}", boxed_serialized_certificate.err().unwrap().to_string());
+        eprintln!("{}", boxed_serialized_certificate.err().unwrap().to_string());
         return;
     }
 
     let serialized_certificate = boxed_serialized_certificate.unwrap();
     let boxed_read_or_write = FileExt::read_or_create_and_write(&certificate_path, serialized_certificate.as_bytes());
     if boxed_read_or_write.is_err() {
-        println!("{}", boxed_read_or_write.err().unwrap().to_string());
+        eprintln!("{}", boxed_read_or_write.err().unwrap().to_string());
         return;
     }
 
     let boxed_private_key_set = acceptor.set_private_key_file(private_key_path, SslFiletype::PEM);
     if boxed_private_key_set.is_err() {
-        println!("{}", boxed_private_key_set.err().unwrap().to_string());
+        eprintln!("{}", boxed_private_key_set.err().unwrap().to_string());
         return;
     }
     boxed_private_key_set.unwrap();
 
     let boxed_certificate_set = acceptor.set_certificate_file(certificate_path, SslFiletype::PEM);
     if boxed_certificate_set.is_err() {
-        println!("{}", boxed_certificate_set.err().unwrap().to_string());
+        eprintln!("{}", boxed_certificate_set.err().unwrap().to_string());
         return;
     }
     boxed_certificate_set.unwrap();
 
     let boxed_check = acceptor.check_private_key();
     if boxed_check.is_err() {
-        println!("{}", boxed_check.err().unwrap().to_string());
+        eprintln!("{}", boxed_check.err().unwrap().to_string());
         return;
     }
     boxed_check.unwrap();
@@ -99,7 +99,7 @@ fn main() {
 
     let boxed_listener = TcpListener::bind(bind_addr);
     if boxed_listener.is_err() {
-        println!("{}", boxed_listener.err().unwrap().to_string());
+        eprintln!("{}", boxed_listener.err().unwrap().to_string());
         return;
     }
     let listener = boxed_listener.unwrap();
@@ -112,7 +112,7 @@ fn main() {
                 pool.execute(move || {
                     let boxed_accept = acceptor.accept(stream);
                     if boxed_accept.is_err() {
-                        println!("{}", boxed_accept.err().unwrap().to_string());
+                        eprintln!("{}", boxed_accept.err().unwrap().to_string());
                         return;
                     }
                     let stream = boxed_accept.unwrap();
@@ -120,7 +120,7 @@ fn main() {
                 });
             }
             Err(e) => {
-                println!("Connection failed, {}", e.to_string());
+                eprintln!("Connection failed, {}", e.to_string());
             }
         }
     }
@@ -181,7 +181,7 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
     if boxed_stream.is_ok() {
         let boxed_flush = stream.flush();
         if boxed_flush.is_err() {
-            println!("{}", boxed_flush.err().unwrap().to_string());
+            eprintln!("{}", boxed_flush.err().unwrap().to_string());
             return;
         }
         boxed_flush.unwrap();
