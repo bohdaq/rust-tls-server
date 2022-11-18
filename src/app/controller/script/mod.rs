@@ -3,7 +3,6 @@ use rust_web_server::mime_type::MimeType;
 use rust_web_server::range::Range;
 use rust_web_server::request::Request;
 use rust_web_server::response::{Response, STATUS_CODE_REASON_PHRASE};
-use rust_web_server::symbol::SYMBOL;
 
 pub struct ScriptController;
 
