@@ -1,12 +1,14 @@
 pub mod controller;
 
-use rust_web_server::app::controller::index::IndexController;
 use rust_web_server::app::controller::not_found::NotFoundController;
 use rust_web_server::app::controller::static_resource::StaticResourceController;
 use rust_web_server::header::Header;
 use rust_web_server::request::Request;
 use rust_web_server::response::{Response, STATUS_CODE_REASON_PHRASE};
 use crate::app::controller::tls::TlsController;
+use crate::app::controller::index::IndexController;
+use crate::app::controller::script::ScriptController;
+use crate::app::controller::style::StyleController;
 
 pub struct App {}
 
@@ -28,6 +30,16 @@ impl App {
 
         if IndexController::is_matching_request(&request) {
             response = IndexController::process_request(&request, response);
+            return (response, request)
+        }
+
+        if StyleController::is_matching_request(&request) {
+            response = StyleController::process_request(&request, response);
+            return (response, request)
+        }
+
+        if ScriptController::is_matching_request(&request) {
+            response = ScriptController::process_request(&request, response);
             return (response, request)
         }
 
