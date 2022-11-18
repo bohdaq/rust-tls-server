@@ -11,7 +11,6 @@ impl ScriptController {
     pub const SCRIPT_FILEPATH: &'static str = "script.js";
 
     pub fn is_matching_request(request: &Request) -> bool {
-        println!("{} {}", request.request_uri, Self::SCRIPT_FILEPATH);
         request.request_uri == "/script.js"
     }
 

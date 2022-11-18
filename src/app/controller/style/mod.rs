@@ -20,7 +20,6 @@ impl StyleController {
 
 
         if FileExt::does_file_exist(StyleController::STYLE_FILEPATH) {
-            println!("exists");
             let boxed_content_range =
                 Range::get_content_range_of_a_file(StyleController::STYLE_FILEPATH);
 
@@ -42,8 +41,6 @@ impl StyleController {
                 response.reason_phrase = STATUS_CODE_REASON_PHRASE.n500_internal_server_error.reason_phrase.to_string();
             }
         } else {
-            println!("does not exist");
-
             let style_file = include_bytes!("style.css");
 
             let content_range =
