@@ -5,6 +5,7 @@ use rust_web_server::app::controller::static_resource::StaticResourceController;
 use rust_web_server::header::Header;
 use rust_web_server::request::Request;
 use rust_web_server::response::{Response, STATUS_CODE_REASON_PHRASE};
+use crate::app::controller::favicon::FaviconController;
 use crate::app::controller::tls::TlsController;
 use crate::app::controller::index::IndexController;
 use crate::app::controller::script::ScriptController;
@@ -40,6 +41,11 @@ impl App {
 
         if ScriptController::is_matching_request(&request) {
             response = ScriptController::process_request(&request, response);
+            return (response, request)
+        }
+
+        if FaviconController::is_matching_request(&request) {
+            response = FaviconController::process_request(&request, response);
             return (response, request)
         }
 
