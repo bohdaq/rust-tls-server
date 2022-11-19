@@ -99,13 +99,16 @@ fn main() {
     let (ip, port, thread_count) = get_ip_port_thread_count();
     let bind_addr = [ip, SYMBOL.colon.to_string(), port.to_string()].join(SYMBOL.empty_string);
 
-    let boxed_listener = TcpListener::bind(bind_addr);
+    let boxed_listener = TcpListener::bind(&bind_addr);
     if boxed_listener.is_err() {
         eprintln!("{}", boxed_listener.err().unwrap().to_string());
         return;
     }
     let listener = boxed_listener.unwrap();
     let pool = ThreadPool::new(thread_count as usize);
+
+    println!("Server is up and running at: https://{}", &bind_addr);
+    println!("Spawned {} thread(s) to handle incoming requests", thread_count);
 
     for stream in listener.incoming() {
         match stream {
