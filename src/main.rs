@@ -172,7 +172,7 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
 
     response.headers.push(Header {
         name: Header::_CONTENT_SECURITY_POLICY.to_string(),
-        value: "default-src https:".to_string()
+        value: "default-src https:; style-src https: 'unsafe-inline'".to_string()
     });
 
     response.headers.push(Header {
