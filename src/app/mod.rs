@@ -1,6 +1,5 @@
 pub mod controller;
 
-use rust_web_server::app::controller::not_found::NotFoundController;
 use rust_web_server::app::controller::static_resource::StaticResourceController;
 use rust_web_server::header::Header;
 use rust_web_server::request::Request;
@@ -8,6 +7,7 @@ use rust_web_server::response::{Response, STATUS_CODE_REASON_PHRASE};
 use crate::app::controller::favicon::FaviconController;
 use crate::app::controller::tls::TlsController;
 use crate::app::controller::index::IndexController;
+use crate::app::controller::not_found::NotFoundController;
 use crate::app::controller::script::ScriptController;
 use crate::app::controller::style::StyleController;
 
