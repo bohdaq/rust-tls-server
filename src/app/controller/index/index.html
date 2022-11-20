@@ -17,6 +17,13 @@
                 server will be stopped with an error.</div>
             <div>These are default resources provided by the server: <span class="accent">favicon.svg, index.html, 404.html,
                 script.js</span> and <span class="accent">style.css</span>. To override put corresponding files in the server's root folder.</div>
+            <div>Security based restrictions:
+                <ul>
+                    <li>Resource inclusion works only via https. This means if you try to include any js, css, image, video,
+                        whatever, it needs to be served on https server</li>
+                    <li>Inline javascript won't be executed. You need to put all js as scripts.</li>
+                    <li>On supported browsers, Referer header won't be sent.</li>
+                </ul>
 
             <h2>Useful links: </h2>
             <ul>
