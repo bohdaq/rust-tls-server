@@ -26,6 +26,11 @@
                         whatever, it needs to be served on https server</li>
                     <li>Inline javascript won't be executed. You need to put all js as scripts.</li>
                     <li>On supported browsers, Referer header won't be sent.</li>
+                    <li>Website can not be used in iframe on other domains.</li>
+                    <li>Resources will be sent to a user with a Content-Type based on file extension.
+                        In practice this means if you, for example, create a js file named script.jstypo,
+                        it won't be interpreted by a client's browser. Use correct file extensions.
+                    </li>
                 </ul>
 
             <h2>Useful links: </h2>
