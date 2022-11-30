@@ -1,12 +1,17 @@
 [package]
 name = "rust-tls-server"
-version = "0.1.0"
+version = "1.0.0"
+authors = ["Bohdan Tsap <bohdan.tsap@tutanota.com>"]
+repository = "https://github.com/bohdaq/rust-web-server"
+description = "rust-tls-server is a web server capable of serving static content over https."
 edition = "2021"
+license = "MIT OR Apache-2.0 OR ISC OR LGPL-3.0-or-later OR CC-BY-4.0"
+rust-version = "1.64"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 openssl = { version="0.10.42", features = ["vendored"] }
-rust-web-server = "4.0.0"
+rust-web-server = "6.0.0"
 rcgen = "0.10.0"
 file-ext = "2.0.0"

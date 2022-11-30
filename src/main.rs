@@ -9,7 +9,7 @@ use rcgen::generate_simple_self_signed;
 use std::net::{TcpStream, TcpListener};
 use std::sync::Arc;
 use file_ext::FileExt;
-use rust_web_server::entry_point::{bootstrap, get_ip_port_thread_count};
+use rust_web_server::entry_point::{bootstrap, get_ip_port_thread_count, set_default_values};
 use rust_web_server::header::Header;
 use rust_web_server::request::Request;
 use rust_web_server::response::Response;
@@ -20,7 +20,22 @@ use crate::app::App;
 use crate::app::controller::tls::TlsController;
 
 fn main() {
-    println!("Rust TLS Server | Draft | Work in Progress");
+    println!("Rust TLS Server");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    const AUTHORS: &str = env!("CARGO_PKG_AUTHORS");
+    const REPOSITORY: &str = env!("CARGO_PKG_REPOSITORY");
+    const DESCRIPTION: &str = env!("CARGO_PKG_DESCRIPTION");
+    const RUST_VERSION: &str = env!("CARGO_PKG_RUST_VERSION");
+    const LICENSE: &str = env!("CARGO_PKG_LICENSE");
+
+    println!("Version:       {}", VERSION);
+    println!("Authors:       {}", AUTHORS);
+    println!("Repository:    {}", REPOSITORY);
+    println!("Desciption:    {}", DESCRIPTION);
+    println!("Rust Version:  {}", RUST_VERSION);
+    println!("License:       {}\n\n", LICENSE);
+    println!("RWS Configuration Start: \n");
+    set_default_values();
     bootstrap();
 
     let boxed_acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls());
