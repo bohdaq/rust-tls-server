@@ -12,3 +12,4 @@ assets only from https sources. Inline javascript is forbidden
 1. [Referer Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy) is set
 to not send any referer information
 1. All other features from [rust-web-server](https://github.com/bohdaq/rust-web-server/blob/main/README.md#features)
+
