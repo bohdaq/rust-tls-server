@@ -7,6 +7,6 @@ authors:
     email: bohdan.tsap@tutanota.com
 title: "Rust TLS Server"
 version: 1.0.0
-doi: 10.5281/zenodo.7159060
+doi: 10.5281/zenodo.7379956
 date-released: 2022-11-30
 url: "https://github.com/bohdaq/rust-tls-server/"
