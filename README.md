@@ -13,3 +13,5 @@ assets only from https sources. Inline javascript is forbidden
 to not send any referer information
 1. All other features from [rust-web-server](https://github.com/bohdaq/rust-web-server/blob/main/README.md#features) (excluding #6)
 
+## Download
+[Download binary](https://github.com/bohdaq/rust-tls-server/releases) from releases page.  There is a mirror for downloads on [Google Drive](https://drive.google.com/drive/folders/1m0GyfvSaKROutjWeVLg23VBCbqZn7OkW?usp=sharing).
