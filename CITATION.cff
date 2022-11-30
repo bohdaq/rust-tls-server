@@ -1,0 +1,12 @@
+cff-version: 0.0.1
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Tsap
+    given-names: Bohdan
+    orcid: https://orcid.org/0000-0002-5221-5607
+    email: bohdan.tsap@tutanota.com
+title: "Rust TLS Server"
+version: 1.0.0
+doi: 10.5281/zenodo.7159060
+date-released: 2022-11-30
+url: "https://github.com/bohdaq/rust-tls-server/"
