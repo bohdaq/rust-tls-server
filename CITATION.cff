@@ -6,7 +6,7 @@ authors:
     orcid: https://orcid.org/0000-0002-5221-5607
     email: bohdan.tsap@tutanota.com
 title: "Rust TLS Server"
-version: 1.0.0
-doi: 10.5281/zenodo.7379956
-date-released: 2022-11-30
+version: 2.0.0
+doi: 10.5281/zenodo.7389520
+date-released: 2022-12-02
 url: "https://github.com/bohdaq/rust-tls-server/"

@@ -1,0 +1,7 @@
+#How to install Rust TLS Server (rts)
+
+You need to add rts executable to the PATH variable. There are multiple ways to do so, one of them is simply to copy rts binary to /usr/local/bin folder and make it executable.
+
+> sudo cp rts /usr/local/bin
+>
+> sudo chmod +x /usr/local/bin/rts
