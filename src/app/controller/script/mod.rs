@@ -40,10 +40,10 @@ impl ScriptController {
                 response.reason_phrase = STATUS_CODE_REASON_PHRASE.n500_internal_server_error.reason_phrase.to_string();
             }
         } else {
-            let index_file = include_bytes!("script.js");
+            let script_file = include_bytes!("script.js");
 
             let content_range =
-                Range::get_content_range(index_file.to_vec(), MimeType::TEXT_JAVASCRIPT.to_string());
+                Range::get_content_range(script_file.to_vec(), MimeType::TEXT_JAVASCRIPT.to_string());
 
 
             let content_range_list = vec![content_range];
