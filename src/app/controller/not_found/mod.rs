@@ -14,8 +14,8 @@ impl NotFoundController {
     }
 
     pub fn process_request(_request: &Request, mut response: Response) -> Response {
-        response.status_code = *STATUS_CODE_REASON_PHRASE.n200_ok.status_code;
-        response.reason_phrase = STATUS_CODE_REASON_PHRASE.n200_ok.reason_phrase.to_string();
+        response.status_code = *STATUS_CODE_REASON_PHRASE.n404_not_found.status_code;
+        response.reason_phrase = STATUS_CODE_REASON_PHRASE.n404_not_found.reason_phrase.to_string();
 
 
         if FileExt::does_file_exist(NotFoundController::NOT_FOUND_FILEPATH) {
