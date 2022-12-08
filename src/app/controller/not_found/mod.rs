@@ -40,10 +40,10 @@ impl NotFoundController {
                 response.reason_phrase = STATUS_CODE_REASON_PHRASE.n500_internal_server_error.reason_phrase.to_string();
             }
         } else {
-            let style_file = include_bytes!("404.html");
+            let not_found_file = include_bytes!("404.html");
 
             let content_range =
-                Range::get_content_range(style_file.to_vec(), MimeType::TEXT_HTML.to_string());
+                Range::get_content_range(not_found_file.to_vec(), MimeType::TEXT_HTML.to_string());
 
 
             let content_range_list = vec![content_range];
