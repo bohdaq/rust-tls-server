@@ -198,7 +198,22 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
     });
 
 
-    println!("\nRequest: {}\nResponse: {} {}\n", &request.request_uri, &response.status_code, &response.reason_phrase);
+    let mut user_agent = "unknown";
+    let boxed_user_agent = request.get_header(Header::_USER_AGENT.to_string());
+    if boxed_user_agent.is_some() {
+        user_agent = boxed_user_agent.unwrap().value.as_str();
+    }
+
+    let mut response_body_length = 0;
+    for content_range in &response.content_range_list {
+        let boxed_parse = content_range.size.parse::<i32>();
+        if boxed_parse.is_ok() {
+            response_body_length += boxed_parse.unwrap();
+        }
+    }
+
+    println!("\nRequest:\n  {} {}\n  User-Agent: {}\nResponse:\n  {} {}\n  {} byte(s)", &request.method, &request.request_uri, user_agent, &response.status_code, &response.reason_phrase, response_body_length);
+
     let raw_response = Response::generate_response(response, request);
 
 
