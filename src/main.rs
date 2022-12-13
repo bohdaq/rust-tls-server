@@ -197,7 +197,10 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
         value: "max-age=15768000".to_string()
     });
 
+
+    println!("\nRequest: {}\nResponse: {} {}\n", &request.request_uri, &response.status_code, &response.reason_phrase);
     let raw_response = Response::generate_response(response, request);
+
 
     let boxed_stream = stream.write(raw_response.borrow());
     if boxed_stream.is_ok() {
