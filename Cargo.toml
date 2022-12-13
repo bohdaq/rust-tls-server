@@ -12,6 +12,6 @@ rust-version = "1.64"
 
 [dependencies]
 openssl = { version="0.10.42", features = ["vendored"] }
-rust-web-server = "6.0.0"
+rust-web-server = "8.0.0"
 rcgen = "0.10.0"
 file-ext = "2.0.0"

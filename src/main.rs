@@ -151,9 +151,10 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
     let mut buffer :[u8; 1024] = [0; 1024];
     let boxed_read = stream.read(&mut buffer);
     if boxed_read.is_err() {
-        eprintln!("unable to read TCP stream {}", boxed_read.as_ref().err().unwrap());
+        let message = boxed_read.as_ref().err().unwrap().to_string();
+        eprintln!("unable to read TCP stream {}", &message);
 
-        let raw_response = Server::bad_request_response();
+        let raw_response = Server::bad_request_response(message);
         let boxed_stream = stream.write(raw_response.borrow());
         if boxed_stream.is_ok() {
             stream.flush().unwrap();
@@ -166,9 +167,10 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
 
     let boxed_request = Request::parse_request(request);
     if boxed_request.is_err() {
-        eprintln!("unable to parse request: {}", boxed_request.as_ref().err().unwrap());
+        let message = boxed_request.as_ref().err().unwrap().to_string();
+        eprintln!("unable to parse request: {}", &message);
 
-        let raw_response = Server::bad_request_response();
+        let raw_response = Server::bad_request_response(message);
         let boxed_stream = stream.write(raw_response.borrow());
         if boxed_stream.is_ok() {
             stream.flush().unwrap();
