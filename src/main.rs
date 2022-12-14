@@ -198,11 +198,24 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
     });
 
 
-    let mut headers = "".to_string();
+    let mut request_headers = "".to_string();
     for header in &request.headers {
         if &header.name.chars().count() > &0 {
-            headers = [
-                headers,
+            request_headers = [
+                request_headers,
+                "\n  ".to_string(),
+                header.name.to_string(),
+                ": ".to_string(),
+                header.value.to_string()
+            ].join("");
+        }
+    }
+
+    let mut response_headers = "".to_string();
+    for header in &response.headers {
+        if &header.name.chars().count() > &0 {
+            response_headers = [
+                response_headers,
                 "\n  ".to_string(),
                 header.name.to_string(),
                 ": ".to_string(),
@@ -219,7 +232,17 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
         }
     }
 
-    println!("\n\nRequest:\n  {} {} {}  {}\nResponse:\n  {} {}\n  {} byte(s)", &request.http_version, &request.method, &request.request_uri, headers, &response.status_code, &response.reason_phrase, response_body_length);
+    println!("\n\nRequest:\n  {} {} {}  {}\nEnd of Request\nResponse:\n  {} {} {}\n\n  Body: {} byte(s) total\nEnd of Response",
+             &request.http_version,
+             &request.method,
+             &request.request_uri,
+             request_headers,
+
+             &response.status_code,
+             &response.reason_phrase,
+             response_headers,
+             response_body_length
+    );
 
     let raw_response = Response::generate_response(response, request);
 
