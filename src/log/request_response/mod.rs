@@ -1,3 +1,6 @@
+#[cfg(test)]
+mod tests;
+
 use rust_web_server::request::Request;
 use rust_web_server::response::Response;
 
