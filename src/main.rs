@@ -1,7 +1,7 @@
 extern crate core;
 
 mod app;
-mod log;
+pub mod log;
 
 use std::borrow::Borrow;
 use std::io::{Read, Write};
@@ -18,6 +18,7 @@ use rust_web_server::server::Server;
 use rust_web_server::symbol::SYMBOL;
 use rust_web_server::thread_pool::ThreadPool;
 use crate::app::App;
+use crate::log::request_response::Log;
 use crate::app::controller::tls::TlsController;
 
 fn main() {
@@ -199,53 +200,7 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
     });
 
 
-    let mut request_headers = "".to_string();
-    for header in &request.headers {
-        if &header.name.chars().count() > &0 {
-            request_headers = [
-                request_headers,
-                "\n  ".to_string(),
-                header.name.to_string(),
-                ": ".to_string(),
-                header.value.to_string()
-            ].join("");
-        }
-    }
-
-    let mut response_headers = "".to_string();
-    for header in &response.headers {
-        if &header.name.chars().count() > &0 {
-            response_headers = [
-                response_headers,
-                "\n  ".to_string(),
-                header.name.to_string(),
-                ": ".to_string(),
-                header.value.to_string()
-            ].join("");
-        }
-    }
-
-    let mut response_body_length = 0;
-    let mut response_body_parts_number = 0;
-    for content_range in &response.content_range_list {
-        let boxed_parse = content_range.size.parse::<i32>();
-        if boxed_parse.is_ok() {
-            response_body_length += boxed_parse.unwrap();
-            response_body_parts_number += 1;
-        }
-    }
-
-    let log_request_response = format!("\n\nRequest:\n  {} {} {}  {}\nEnd of Request\nResponse:\n  {} {} {}\n\n  Body: {} part(s), {} byte(s) total\nEnd of Response",
-                                       &request.http_version,
-                                       &request.method,
-                                       &request.request_uri,
-                                       request_headers,
-
-                                       &response.status_code,
-                                       &response.reason_phrase,
-                                       response_headers,
-                                       response_body_parts_number,
-                                       response_body_length);
+    let log_request_response = Log::request_response(&request, &response);
     println!("{}", log_request_response);
 
     let raw_response = Response::generate_response(response, request);
