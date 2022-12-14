@@ -232,17 +232,17 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
         }
     }
 
-    println!("\n\nRequest:\n  {} {} {}  {}\nEnd of Request\nResponse:\n  {} {} {}\n\n  Body: {} byte(s) total\nEnd of Response",
-             &request.http_version,
-             &request.method,
-             &request.request_uri,
-             request_headers,
+    let log_request_response = format!("\n\nRequest:\n  {} {} {}  {}\nEnd of Request\nResponse:\n  {} {} {}\n\n  Body: {} byte(s) total\nEnd of Response",
+                                       &request.http_version,
+                                       &request.method,
+                                       &request.request_uri,
+                                       request_headers,
 
-             &response.status_code,
-             &response.reason_phrase,
-             response_headers,
-             response_body_length
-    );
+                                       &response.status_code,
+                                       &response.reason_phrase,
+                                       response_headers,
+                                       response_body_length);
+    println!("{}", log_request_response);
 
     let raw_response = Response::generate_response(response, request);
 
