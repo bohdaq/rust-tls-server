@@ -198,10 +198,17 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
     });
 
 
-    let mut user_agent = "unknown";
-    let boxed_user_agent = request.get_header(Header::_USER_AGENT.to_string());
-    if boxed_user_agent.is_some() {
-        user_agent = boxed_user_agent.unwrap().value.as_str();
+    let mut headers = "".to_string();
+    for header in &request.headers {
+        if &header.name.chars().count() > &0 {
+            headers = [
+                headers,
+                "\n  ".to_string(),
+                header.name.to_string(),
+                ": ".to_string(),
+                header.value.to_string()
+            ].join("");
+        }
     }
 
     let mut response_body_length = 0;
@@ -212,7 +219,7 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
         }
     }
 
-    println!("\nRequest:\n  {} {}\n  User-Agent: {}\nResponse:\n  {} {}\n  {} byte(s)", &request.method, &request.request_uri, user_agent, &response.status_code, &response.reason_phrase, response_body_length);
+    println!("\n\nRequest:\n  {} {} {}  {}\nResponse:\n  {} {}\n  {} byte(s)", &request.http_version, &request.method, &request.request_uri, headers, &response.status_code, &response.reason_phrase, response_body_length);
 
     let raw_response = Response::generate_response(response, request);
 
