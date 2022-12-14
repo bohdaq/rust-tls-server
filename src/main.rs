@@ -1,6 +1,7 @@
 extern crate core;
 
 mod app;
+mod log;
 
 use std::borrow::Borrow;
 use std::io::{Read, Write};
@@ -225,14 +226,16 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
     }
 
     let mut response_body_length = 0;
+    let mut response_body_parts_number = 0;
     for content_range in &response.content_range_list {
         let boxed_parse = content_range.size.parse::<i32>();
         if boxed_parse.is_ok() {
             response_body_length += boxed_parse.unwrap();
+            response_body_parts_number += 1;
         }
     }
 
-    let log_request_response = format!("\n\nRequest:\n  {} {} {}  {}\nEnd of Request\nResponse:\n  {} {} {}\n\n  Body: {} byte(s) total\nEnd of Response",
+    let log_request_response = format!("\n\nRequest:\n  {} {} {}  {}\nEnd of Request\nResponse:\n  {} {} {}\n\n  Body: {} part(s), {} byte(s) total\nEnd of Response",
                                        &request.http_version,
                                        &request.method,
                                        &request.request_uri,
@@ -241,6 +244,7 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
                                        &response.status_code,
                                        &response.reason_phrase,
                                        response_headers,
+                                       response_body_parts_number,
                                        response_body_length);
     println!("{}", log_request_response);
 
