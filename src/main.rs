@@ -7,7 +7,7 @@ use std::borrow::Borrow;
 use std::io::{Read, Write};
 use openssl::ssl::{SslMethod, SslAcceptor, SslStream, SslFiletype};
 use rcgen::generate_simple_self_signed;
-use std::net::{TcpStream, TcpListener};
+use std::net::{TcpStream, TcpListener, SocketAddr, IpAddr, Ipv4Addr};
 use std::sync::Arc;
 use file_ext::FileExt;
 use rust_web_server::entry_point::{bootstrap, get_ip_port_thread_count, set_default_values};
@@ -200,7 +200,16 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
     });
 
 
-    let log_request_response = Log::request_response(&request, &response);
+    let tcp_stream = stream.get_ref();
+    let mut peer_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(0,0,0,0)), 0);
+    let boxed_peer_addr = tcp_stream.peer_addr();
+    if boxed_peer_addr.is_ok() {
+        peer_addr = boxed_peer_addr.unwrap()
+    } else {
+        eprintln!("\nunable to read peer addr");
+    }
+
+    let log_request_response = Log::request_response(&request, &response, &peer_addr);
     println!("{}", log_request_response);
 
     let raw_response = Response::generate_response(response, request);

@@ -1,13 +1,14 @@
 #[cfg(test)]
 mod tests;
 
+use std::net::SocketAddr;
 use rust_web_server::request::Request;
 use rust_web_server::response::Response;
 
 pub struct Log;
 
 impl Log {
-    pub fn request_response(request: &Request, response: &Response) -> String {
+    pub fn request_response(request: &Request, response: &Response, peer_addr: &SocketAddr) -> String {
         let mut request_headers = "".to_string();
         for header in &request.headers {
             if &header.name.chars().count() > &0 {
@@ -44,7 +45,8 @@ impl Log {
             }
         }
 
-        let log_request_response = format!("\n\nRequest:\n  {} {} {}  {}\nEnd of Request\nResponse:\n  {} {} {}\n\n  Body: {} part(s), {} byte(s) total\nEnd of Response",
+        let log_request_response = format!("\n\nRequest (peer address is {}):\n  {} {} {}  {}\nEnd of Request\nResponse:\n  {} {} {}\n\n  Body: {} part(s), {} byte(s) total\nEnd of Response",
+                                           peer_addr,
                                            &request.http_version,
                                            &request.method,
                                            &request.request_uri,
