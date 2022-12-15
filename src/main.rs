@@ -37,7 +37,8 @@ fn main() {
     println!("Desciption:    {}", DESCRIPTION);
     println!("Rust Version:  {}", RUST_VERSION);
     println!("License:       {}\n\n", LICENSE);
-    print_usage_information();
+    let usage_info = print_usage_information();
+    println!("{}", usage_info);
     println!("RWS Configuration Start: \n");
     set_default_values();
     bootstrap();
@@ -229,11 +230,13 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
 
 }
 
-pub fn print_usage_information() {
-    println!("Usage:\n");
+pub fn print_usage_information() -> String {
+    let mut log = "Usage:\n\n".to_string();
     let command_line_arg_list = CommandLineArgument::get_command_line_arg_list();
     for arg in command_line_arg_list {
-        println!("  {} environment variable\n  -{} or --{} as command line line argument\n  {}\n\n", arg.environment_variable, arg.short_form, arg.long_form, arg._hint.unwrap())
+        let argument_info = format!("  {} environment variable\n  -{} or --{} as command line line argument\n  {}\n\n", arg.environment_variable, arg.short_form, arg.long_form, arg._hint.unwrap());
+        log = [log, argument_info].join("");
     }
-    println!("End of usage section\n\n");
+    log = [log, "End of usage section\n\n".to_string()].join("");
+    log
 }
