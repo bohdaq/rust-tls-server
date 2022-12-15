@@ -62,7 +62,7 @@ impl Log {
         log_request_response
     }
 
-    pub fn print_usage_information() -> String {
+    pub fn usage_information() -> String {
         let mut log = "Usage:\n\n".to_string();
         let command_line_arg_list = CommandLineArgument::get_command_line_arg_list();
         for arg in command_line_arg_list {

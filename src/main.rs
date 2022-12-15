@@ -36,7 +36,7 @@ fn main() {
     println!("Desciption:    {}", DESCRIPTION);
     println!("Rust Version:  {}", RUST_VERSION);
     println!("License:       {}\n\n", LICENSE);
-    let usage_info = Log::print_usage_information();
+    let usage_info = Log::usage_information();
     println!("{}", usage_info);
     println!("RWS Configuration Start: \n");
     set_default_values();
