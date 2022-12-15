@@ -8,7 +8,7 @@ There is a mirror for downloads on [Google Drive](https://drive.google.com/drive
 >
 > sudo chmod +x /usr/local/bin/rts
 #### x86 64-bit Homebrew macOS
-> brew tap bohdaq/rust-web-server
+> brew tap bohdaq/rust-tls-server
 >
 > brew install rts
 
