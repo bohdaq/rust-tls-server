@@ -3,7 +3,7 @@ use rust_web_server::header::Header;
 use rust_web_server::http::VERSION;
 use rust_web_server::request::{METHOD, Request};
 use crate::app::App;
-use crate::log::request_response::Log;
+use crate::log::Log;
 
 #[test]
 fn log_request_response() {

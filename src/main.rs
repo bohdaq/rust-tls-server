@@ -11,7 +11,6 @@ use std::net::{TcpStream, TcpListener, SocketAddr, IpAddr, Ipv4Addr};
 use std::sync::Arc;
 use file_ext::FileExt;
 use rust_web_server::entry_point::{bootstrap, get_ip_port_thread_count, set_default_values};
-use rust_web_server::entry_point::command_line_args::CommandLineArgument;
 use rust_web_server::header::Header;
 use rust_web_server::request::Request;
 use rust_web_server::response::Response;
@@ -19,7 +18,7 @@ use rust_web_server::server::Server;
 use rust_web_server::symbol::SYMBOL;
 use rust_web_server::thread_pool::ThreadPool;
 use crate::app::App;
-use crate::log::request_response::Log;
+use crate::log::Log;
 use crate::app::controller::tls::TlsController;
 
 fn main() {
@@ -37,7 +36,7 @@ fn main() {
     println!("Desciption:    {}", DESCRIPTION);
     println!("Rust Version:  {}", RUST_VERSION);
     println!("License:       {}\n\n", LICENSE);
-    let usage_info = print_usage_information();
+    let usage_info = Log::print_usage_information();
     println!("{}", usage_info);
     println!("RWS Configuration Start: \n");
     set_default_values();
@@ -228,15 +227,4 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
         boxed_flush.unwrap();
     };
 
-}
-
-pub fn print_usage_information() -> String {
-    let mut log = "Usage:\n\n".to_string();
-    let command_line_arg_list = CommandLineArgument::get_command_line_arg_list();
-    for arg in command_line_arg_list {
-        let argument_info = format!("  {} environment variable\n  -{} or --{} as command line line argument\n  {}\n\n", arg.environment_variable, arg.short_form, arg.long_form, arg._hint.unwrap());
-        log = [log, argument_info].join("");
-    }
-    log = [log, "End of usage section\n\n".to_string()].join("");
-    log
 }
