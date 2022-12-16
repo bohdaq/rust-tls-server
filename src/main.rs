@@ -22,20 +22,9 @@ use crate::log::Log;
 use crate::app::controller::tls::TlsController;
 
 fn main() {
-    println!("Rust TLS Server");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    const AUTHORS: &str = env!("CARGO_PKG_AUTHORS");
-    const REPOSITORY: &str = env!("CARGO_PKG_REPOSITORY");
-    const DESCRIPTION: &str = env!("CARGO_PKG_DESCRIPTION");
-    const RUST_VERSION: &str = env!("CARGO_PKG_RUST_VERSION");
-    const LICENSE: &str = env!("CARGO_PKG_LICENSE");
+    let info = Log::info();
+    println!("{}", info);
 
-    println!("Version:       {}", VERSION);
-    println!("Authors:       {}", AUTHORS);
-    println!("Repository:    {}", REPOSITORY);
-    println!("Desciption:    {}", DESCRIPTION);
-    println!("Rust Version:  {}", RUST_VERSION);
-    println!("License:       {}\n\n", LICENSE);
     let usage_info = Log::usage_information();
     println!("{}", usage_info);
     println!("RWS Configuration Start: \n");

@@ -72,4 +72,34 @@ impl Log {
         log = [log, "End of usage section\n\n".to_string()].join("");
         log
     }
+
+    pub fn info() -> String {
+        let mut log = "Rust TLS Server\n".to_string();
+        const VERSION: &str = env!("CARGO_PKG_VERSION");
+        const AUTHORS: &str = env!("CARGO_PKG_AUTHORS");
+        const REPOSITORY: &str = env!("CARGO_PKG_REPOSITORY");
+        const DESCRIPTION: &str = env!("CARGO_PKG_DESCRIPTION");
+        const RUST_VERSION: &str = env!("CARGO_PKG_RUST_VERSION");
+        const LICENSE: &str = env!("CARGO_PKG_LICENSE");
+
+        let version = format!("Version:       {}\n", VERSION);
+        log = [log, version].join("");
+
+        let authors = format!("Authors:       {}", AUTHORS);
+        log = [log, authors].join("");
+
+        let repository = format!("Repository:    {}", REPOSITORY);
+        log = [log, repository].join("");
+
+        let description = format!("Desciption:    {}", DESCRIPTION);
+        log = [log, description].join("");
+
+        let rust_version = format!("Rust Version:  {}", RUST_VERSION);
+        log = [log, rust_version].join("");
+
+        let license = format!("Rust Version:  {}", LICENSE);
+        log = [log, license].join("");
+
+        log
+    }
 }
