@@ -85,19 +85,19 @@ impl Log {
         let version = format!("Version:       {}\n", VERSION);
         log = [log, version].join("");
 
-        let authors = format!("Authors:       {}", AUTHORS);
+        let authors = format!("Authors:       {}\n", AUTHORS);
         log = [log, authors].join("");
 
-        let repository = format!("Repository:    {}", REPOSITORY);
+        let repository = format!("Repository:    {}\n", REPOSITORY);
         log = [log, repository].join("");
 
-        let description = format!("Desciption:    {}", DESCRIPTION);
+        let description = format!("Desciption:    {}\n", DESCRIPTION);
         log = [log, description].join("");
 
-        let rust_version = format!("Rust Version:  {}", RUST_VERSION);
+        let rust_version = format!("Rust Version:  {}\n", RUST_VERSION);
         log = [log, rust_version].join("");
 
-        let license = format!("Rust Version:  {}", LICENSE);
+        let license = format!("License:  {}", LICENSE);
         log = [log, license].join("");
 
         log

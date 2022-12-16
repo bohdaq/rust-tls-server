@@ -38,3 +38,25 @@ fn usage_info() {
     let actual_info = Log::usage_information();
     assert_eq!(expected_info, actual_info)
 }
+
+#[test]
+fn info() {
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    const AUTHORS: &str = env!("CARGO_PKG_AUTHORS");
+    const REPOSITORY: &str = env!("CARGO_PKG_REPOSITORY");
+    const DESCRIPTION: &str = env!("CARGO_PKG_DESCRIPTION");
+    const RUST_VERSION: &str = env!("CARGO_PKG_RUST_VERSION");
+    const LICENSE: &str = env!("CARGO_PKG_LICENSE");
+
+
+    let expected_info = format!("Rust TLS Server\nVersion:       {}\nAuthors:       {}\nRepository:    {}\nDesciption:    {}\nRust Version:  {}\nLicense:  {}",
+        VERSION,
+        AUTHORS,
+        REPOSITORY,
+        DESCRIPTION,
+        RUST_VERSION,
+        LICENSE
+    ).to_string();
+    let actual_info = Log::info();
+    assert_eq!(expected_info, actual_info)
+}
