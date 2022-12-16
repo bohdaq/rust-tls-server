@@ -115,7 +115,7 @@ fn main() {
     let listener = boxed_listener.unwrap();
     let pool = ThreadPool::new(thread_count as usize);
 
-    let server_url_thread_count = Log::server_url_thread_count(&bind_addr, thread_count);
+    let server_url_thread_count = Log::server_url_thread_count("https", &bind_addr, thread_count);
     println!("{}", server_url_thread_count);
 
     for stream in listener.incoming() {
