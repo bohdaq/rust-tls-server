@@ -102,4 +102,10 @@ impl Log {
 
         log
     }
+
+    pub fn server_url_thread_count(bind_addr: &String, thread_count: i32) -> String {
+        let url = format!("Server is up and running at: https://{}\n", &bind_addr);
+        let thread_count = format!("Spawned {} thread(s) to handle incoming requests\n", thread_count);
+        [url, thread_count].join("")
+    }
 }

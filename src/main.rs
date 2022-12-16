@@ -115,8 +115,8 @@ fn main() {
     let listener = boxed_listener.unwrap();
     let pool = ThreadPool::new(thread_count as usize);
 
-    println!("Server is up and running at: https://{}", &bind_addr);
-    println!("Spawned {} thread(s) to handle incoming requests", thread_count);
+    let server_url_thread_count = Log::server_url_thread_count(&bind_addr, thread_count);
+    println!("{}", server_url_thread_count);
 
     for stream in listener.incoming() {
         match stream {
