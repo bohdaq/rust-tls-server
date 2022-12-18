@@ -48,4 +48,9 @@ If you appreciate my work and want to support it, feel free to do it via [PayPal
 1. [Create RPM Package](https://github.com/bohdaq/rws-rpm-builder)
 1. [Homebrew Formula](https://github.com/bohdaq/homebrew-rust-tls-server)
 1. [crypto-ext](https://github.com/bohdaq/crypto-ext/)
-1. [file-ext](https://github.com/bohdaq/file-ext/)
+1. [file-ext](https://github.com/bohdaq/file-ext/)authors = ["Bohdan Tsap <bohdan.tsap@tutanota.com>"]
+   repository = "https://github.com/bohdaq/rust-web-server"
+   description = "rust-web-server (rws) is a static content web-server written in Rust"
+   edition = "2021"
+   license = "MIT OR Apache-2.0 OR ISC OR LGPL-3.0-or-later OR CC-BY-4.0"
+   rust-version = "1.6
