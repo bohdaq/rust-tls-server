@@ -46,3 +46,10 @@ I see the following error in console output
 
 ### Solution
 Client may interrupt connection due to various reasons, most of the time you can ignore following message if you are using self-signed certificate.
+
+## #6
+I see the following error in console output
+> the handshake failed: unexpected EOF
+
+### Solution
+Client may interrupt connection due to various reasons, most of the time you can ignore following message.
