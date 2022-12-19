@@ -37,6 +37,6 @@ Here is the list of supported architectures:
    2.  RPM: **[rts create rpm package](https://github.com/bohdaq/rws-rpm-builder)** 
 3. ARM 64-bit Linux: **aarch64_unknown_linux_gnu**
    1.  Debian: **[rts create deb package](https://github.com/bohdaq/rws-create-deb)**
-
+4. x86 64-bit Windows: **x86_64-pc-windows-msvc**
 
 Also, you can clone the repository and build **rts** binary for [other platforms](https://doc.rust-lang.org/nightly/rustc/platform-support.html).
