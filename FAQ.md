@@ -53,3 +53,11 @@ I see the following error in console output
 
 ### Solution
 Client may interrupt connection due to various reasons, most of the time you can ignore following message.
+
+## #7
+I'm not able to download files from the server by opening it in the browser
+
+### Solution
+Most likely you are using self-signed certificate and as security measure browser won't let you download any files. As a solution you may obtain trusted certificate from Let's Encrypt. To do so you can use http-to-https-letsencrypt.
+
+Alternatively you can run [Rust Web Server](https://github.com/bohdaq/rust-web-server) on other port and download files over unencrypted http connection.
