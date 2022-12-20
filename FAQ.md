@@ -22,7 +22,7 @@ Find out PID and stop it.
 > 
 > sudo lsof -i :80 # works on macOS as well as on linux
 
-## #3
+## Problem #3
 I started http-to-https-letsencrypt on http://127.0.0.1:80, 
 but unable to query it from local network.
 
@@ -33,31 +33,54 @@ using provided ip.
 
 > ifconfig # find ip address
 
-## #4
+## Problem #4
 I'm not able to set cookies.
 
 ### Solution
 Cookies are not implemented for Rust TLS Server. As a developer you may use
 [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) or [sessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) to bypass absence of the cookies.
 
-## #5
+## Problem #5
 I see the following error in console output
 > the handshake failed: error:14094416:SSL routines:ssl3_read_bytes:sslv3 alert certificate unknown:ssl/record/rec_layer_s3.c:1556:SSL alert number 46
 
 ### Solution
 Client may interrupt connection due to various reasons, most of the time you can ignore following message if you are using self-signed certificate.
 
-## #6
+## Problem #6
 I see the following error in console output
 > the handshake failed: unexpected EOF
 
 ### Solution
 Client may interrupt connection due to various reasons, most of the time you can ignore following message.
 
-## #7
+## Problem #7
 I'm not able to download files from the server by opening it in the browser
 
 ### Solution
-Most likely you are using self-signed certificate and as security measure browser won't let you download any files. As a solution you may obtain trusted certificate from Let's Encrypt. To do so you can use http-to-https-letsencrypt.
+Most likely you are using self-signed certificate and as security measure browser won't let you download any files. As a solution you may obtain trusted certificate from Let's Encrypt. To do so you can use [http-to-https-letsencrypt](https://github.com/bohdaq/rust-http-to-https-letsencrypt-acme).
 
 Alternatively you can run [Rust Web Server](https://github.com/bohdaq/rust-web-server) on other port and download files over unencrypted http connection.
+
+## Problem #8
+I see the following error in the console:
+> unable to parse request: invalid utf-8 sequence of _n_ bytes from index _m_
+
+### Solution
+Server received not properly encoded request in UTF-8 charset. Request may be sent from various software on your network. You can ignore this message.
+
+
+## Problem #9
+I see the following error in the console:
+> unable to parse request: Unable to parse method, request uri and http version
+
+### Solution
+Server received not valid request, for example it may contain a typo or [ASCII invisible control characters](https://en.wikipedia.org/wiki/Control_character). Request may be sent from various software on your network. You can ignore this message.
+
+## Problem #10
+I see the following error in the console(**Linux**):
+> unable to set up TCP listener: Cannot assign requested address (os error 99)
+>
+
+### Solution
+Most probably you are trying to start server on port 80. To start server on port 80 try to run it as an administrator or user with admin privileges.
