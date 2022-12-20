@@ -7,7 +7,7 @@ I'm getting following error:
 > unable to set up TCP listener: Permission denied (os error 13)
 
 ### Solution
-Try to run http-to-https-letsencrypt with admin privileges.
+Try to run rts with admin privileges.
 
 ## Problem #2 
 I'm getting following error:
@@ -23,12 +23,12 @@ Find out PID and stop it.
 > sudo lsof -i :80 # works on macOS as well as on linux
 
 ## Problem #3
-I started http-to-https-letsencrypt on http://127.0.0.1:80, 
+I started rts on http://127.0.0.1:80, 
 but unable to query it from local network.
 
 ### Solution
 Server is running on loopback device. Find out ip address 
-of you network device and restart http-to-https-letsencrypt
+of you network device and restart rts
 using provided ip.
 
 > ifconfig # find ip address
