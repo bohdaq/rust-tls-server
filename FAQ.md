@@ -86,7 +86,14 @@ I see the following error in the console(**Linux**):
 Most probably you are trying to start server on port 80. To start server on port 80 try to run it as an administrator or user with admin privileges.
 
 ## Problem #11
-How do i start server on IPv6?
+How do I start server on IPv6?
 
 ### Solution
 Simply start server with -ip=:: (or -i=::).
+
+## Problem #12
+I have started server on ip=:: but unable to access it via fe80::... address.
+
+### Solution
+Try to access the server using IPv4 _inet_ address, from the same interface. Internally your IPv4 address will be converted to IPv6 variant [::ffff:192.168.m.n].
+
