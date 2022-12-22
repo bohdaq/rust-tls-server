@@ -117,4 +117,4 @@ I'm not able to start server as root
 
 > Command not found
 
-Root does not have /usr/local/bin as part of his $PATH variable. Try to start server by explicitly specifying path to rws: _/usr/local/bin/rws_ 
+Root does not have /usr/local/bin as part of his $PATH variable. Try to start server by explicitly specifying path to rts: _/usr/local/bin/rts_ 
