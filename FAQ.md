@@ -128,7 +128,7 @@ I'm trying to build rts from source and getting the error:
 
 ### Solution
 You need to install development tools:
-> sudo yum groupinstall "Development Tools"  #RHEL and derivatives
+> sudo dnf group install "Development Tools"  #RHEL and derivatives
 >
 > sudo yum install cmake make gcc #RHEL and derivatives
 
