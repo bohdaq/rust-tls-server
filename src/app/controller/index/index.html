@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="/style.css" />
-        <link rel="icon" href="/favicon.svg" />
+        <link rel="stylesheet" href="/style.css">
+        <link rel="icon" href="/favicon.svg">
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <div class="container">
@@ -20,7 +21,7 @@
                 server will be stopped with an error.</div>
             <div>These are default resources provided by the server: <span class="accent">favicon.svg, index.html, 404.html,
                 script.js</span> and <span class="accent">style.css</span>. To override put corresponding files in the server's root folder.</div>
-            <div>Security based restrictions:
+            <div>Security based restrictions:</div>
                 <ul>
                     <li>Resource inclusion works only via https. This means if you try to include any js, css, image, video,
                         whatever, it needs to be served on https server</li>
@@ -31,12 +32,24 @@
                         In practice this means if you, for example, create a js file named script.jstypo,
                         it won't be interpreted by a client's browser. Use correct file extensions.
                     </li>
+                    <li>
+                        Directory listing is not implemented. The reason behind this decision is security. To eliminate accidental sharing of unintended files.
+                        <br>
+                        As a workaround you can create html file with list of files you need to make available.
+                    </li>
+                    <li>
+                        Cookies are not implemented for Rust Web Server.
+                        As a developer you may use
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage">sessionStorage</a> to bypass absence
+                        of the cookies.
+                    </li>
                 </ul>
 
             <h2>Useful links: </h2>
             <ul>
-                <li><a href="https://github.com/bohdaq/rust-tls-server">Rust TLS Server</a> — server's repository page</li>
-                <li><a href="https://github.com/bohdaq/rust-web-server">Rust Web Server</a> — server's core repository page</li>
+                <li><a href="https://github.com/bohdaq/rust-web-server">Rust Web Server</a> — static content web-server written in Rust</li>
+                <li><a href="https://github.com/bohdaq/rust-tls-server">Rust TLS Server</a> — TLS capable server version</li>
+                <li><a href="https://github.com/bohdaq/rust-http-to-https-letsencrypt-acme">HTTP-to-HTTPS Let's Encrypt</a> — HTTP server for traffic redirection to HTTPS</li>
             </ul>
         </div>
     <script src="script.js"></script>
