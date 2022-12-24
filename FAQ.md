@@ -139,3 +139,13 @@ You need to install development tools:
 
 > sudo pacman -S base-devel # Arch Linux
 
+
+## Problem 17
+I'm trying to build rts from source and getting the error:
+
+> Can't locate FindBin.pm in @INC (you may need to install the FindBin module)
+
+### Solution
+You need to install perl:
+> sudo dnf  install perl # RHEL and derivatives
+
