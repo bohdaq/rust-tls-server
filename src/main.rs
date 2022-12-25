@@ -103,8 +103,14 @@ fn main() {
 
     let acceptor = Arc::new(acceptor.build());
 
+
     let (ip, port, thread_count) = get_ip_port_thread_count();
-    let bind_addr = [ip, SYMBOL.colon.to_string(), port.to_string()].join(SYMBOL.empty_string);
+    let mut ip_readable = ip.to_string();
+    if ip_readable.contains(":") {
+        ip_readable = [SYMBOL.opening_square_bracket, &ip, SYMBOL.closing_square_bracket].join("");
+    }
+
+    let bind_addr = [ip_readable, SYMBOL.colon.to_string(), port.to_string()].join(SYMBOL.empty_string);
 
     let boxed_listener = TcpListener::bind(&bind_addr);
     if boxed_listener.is_err() {
