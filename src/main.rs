@@ -1,7 +1,6 @@
 extern crate core;
 
 mod app;
-pub mod log;
 
 use std::borrow::Borrow;
 use std::io::{Read, Write};
@@ -16,13 +15,13 @@ use rust_web_server::request::Request;
 use rust_web_server::response::Response;
 use rust_web_server::server::Server;
 use rust_web_server::symbol::SYMBOL;
+use rust_web_server::log::Log;
 use rust_web_server::thread_pool::ThreadPool;
 use crate::app::App;
-use crate::log::Log;
 use crate::app::controller::tls::TlsController;
 
 fn main() {
-    let info = Log::info();
+    let info = Log::info("Rust TLS Server");
     println!("{}", info);
 
     let usage_info = Log::usage_information();
