@@ -28,6 +28,9 @@ There is a mirror for downloads on [Google Drive](https://drive.google.com/drive
 #### x86 64-bit RPM
 Replace _YOUR_VERSION_ with version you downloaded.
 > sudo rpm -i --force rts-_YOUR_VERSION_.rpm
+#### x86 64-bit Portage ebuild
+Open **[Rust TLS Server Portage ebuild](https://github.com/bohdaq/rts-portage-ebuild)** for details.
+
 
 ### ARM 64-bit Linux
 > sudo cp rts /usr/bin

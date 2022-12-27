@@ -25,6 +25,7 @@ Releases initially being prepared at
 
 There are additional templates for
 [Homebrew](https://brew.sh/),
+[Portage](https://wiki.gentoo.org/wiki/Portage), 
 [Debian](https://www.debian.org/) and
 [RPM](https://rpm.org/) package systems.
 
@@ -32,11 +33,12 @@ There are additional templates for
 Here is the list of supported architectures:
 1. x86 64-bit Apple: **x86_64-apple-darwin**
     1. [Homebrew Formula](https://github.com/bohdaq/homebrew-rust-tls-server)
-2. x86 64-bit Linux: **x86_64-unknown-linux-gnu**
+1. x86 64-bit Linux: **x86_64-unknown-linux-gnu**
    1.  Debian: **[rts create deb package](https://github.com/bohdaq/rws-create-deb)** 
-   2.  RPM: **[rts create rpm package](https://github.com/bohdaq/rws-rpm-builder)** 
-3. ARM 64-bit Linux: **aarch64_unknown_linux_gnu**
+   1.  RPM: **[rts create rpm package](https://github.com/bohdaq/rws-rpm-builder)**
+   1.  Portage: **[rts create ebuild](https://github.com/bohdaq/rts-portage-ebuild)**
+1. ARM 64-bit Linux: **aarch64_unknown_linux_gnu**
    1.  Debian: **[rts create deb package](https://github.com/bohdaq/rws-create-deb)**
-4. x86 64-bit Windows: **x86_64-pc-windows-msvc**
+1. x86 64-bit Windows: **x86_64-pc-windows-msvc**
 
 Also, you can clone the repository and build **rts** binary for [other platforms](https://doc.rust-lang.org/nightly/rustc/platform-support.html).
