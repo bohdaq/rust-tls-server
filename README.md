@@ -45,7 +45,7 @@ If you appreciate my work and want to support it, feel free to do it via [PayPal
 
 ## Links
 1. [Rust Web Server](https://github.com/bohdaq/rust-web-server)
-1. [http-to-https-letsencrypt](https://github.com/bohdaq/rust-http-to-https-letsencrypt-acme)
+1. [http-to-https-letsencrypt](https://github.com/bohdaq/http-to-https-letsencrypt)
 1. [Rust Web Framework](https://github.com/bohdaq/rust-web-framework/)
 1. [Create Debian Package](https://github.com/bohdaq/rws-create-deb)
 1. [Create RPM Package](https://github.com/bohdaq/rws-rpm-builder)

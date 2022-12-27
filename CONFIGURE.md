@@ -23,7 +23,7 @@ However, this certificate will cause browser warning.
 
 To resolve the warning you may use [Let's Encrypt](https://letsencrypt.org/) service.
 
-There's [http-to-https-letsencrypt](https://github.com/bohdaq/rust-http-to-https-letsencrypt-acme) HTTP server with default redirect to HTTPS and support for Let'sEncrypt Automatic Certificate Management Environment using HTTP-01 challenge.
+There's [http-to-https-letsencrypt](https://github.com/bohdaq/http-to-https-letsencrypt) HTTP server with default redirect to HTTPS and support for Let'sEncrypt Automatic Certificate Management Environment using HTTP-01 challenge.
 
 ## Memory
 As any other application, rts will allocate memory required to serve the request.
