@@ -1,6 +1,6 @@
 [package]
 name = "rts"
-version = "8.0.5"
+version = "8.0.6"
 authors = ["Bohdan Tsap <bohdan.tsap@tutanota.com>"]
 repository = "https://github.com/bohdaq/rust-web-server"
 description = "rust-tls-server is a web server capable of serving static content over https."
@@ -12,6 +12,5 @@ rust-version = "1.65"
 
 [dependencies]
 openssl = { version="0.10.42", features = ["vendored"] }
-rust-web-server = "8.0.5"
+rust-web-server = "8.0.6"
 rcgen = "0.10.0"
-file-ext = "8.0.1"
