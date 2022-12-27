@@ -119,7 +119,9 @@ I'm not able to start server as root
 > Command not found
 
 ### Solution
-Root does not have /usr/local/bin as part of his $PATH variable. Try to start server by explicitly specifying path to rts: _/usr/local/bin/rts_ 
+Root does not have /usr/local/bin as part of his $PATH variable. Try to start server by explicitly specifying path to rts: _/usr/local/bin/rts_
+
+UPDATE 26 Dec 2022: new guideline is to install rts to /usr/bin directory.
 
 ## Problem 16
 I'm trying to build rts from source and getting the error:
