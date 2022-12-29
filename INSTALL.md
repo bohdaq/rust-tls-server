@@ -38,6 +38,8 @@ Open **[Rust TLS Server Portage ebuild](https://github.com/bohdaq/rts-portage-eb
 > sudo chmod ug+rwx,o+r /usr/bin/rts
 #### ARM 64-bit Debian
 > sudo dpkg -i --force-overwrite rts.deb
+#### x86 64-bit Pacman package
+Open **[Rust TLS Server Pacman package](https://github.com/bohdaq/rts-arch-package)** for details.
 
 ### x86 64-bit Windows
 Copy executable to _C:\WINDOWS\system32_ folder.

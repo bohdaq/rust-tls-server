@@ -37,6 +37,8 @@ Here is the list of supported architectures:
    1.  Debian: **[rts create deb package](https://github.com/bohdaq/rws-create-deb)** 
    1.  RPM: **[rts create rpm package](https://github.com/bohdaq/rws-rpm-builder)**
    1.  Portage: **[rts create ebuild](https://github.com/bohdaq/rts-portage-ebuild)**
+   1.  Pacman package: **[rts create pacman package](https://github.com/bohdaq/rts-arch-package)**
+
 1. ARM 64-bit Linux: **aarch64_unknown_linux_gnu**
    1.  Debian: **[rts create deb package](https://github.com/bohdaq/rws-create-deb)**
 1. x86 64-bit Windows: **x86_64-pc-windows-msvc**
