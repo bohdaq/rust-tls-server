@@ -151,3 +151,14 @@ I'm trying to build rts from source and getting the error:
 You need to install perl:
 > sudo dnf  install perl # RHEL and derivatives
 
+## Problem 18
+While building from IDE getting error:
+
+> error[E0514]: found crate `NAME` compiled by an incompatible version of rustc
+
+### Solution
+Usually whenever such error encountered by me, I'm performing clean and build from the console, eliminating the built-in IDE compilation, and it works fine.
+
+> cargo clean
+>
+> cargo build
