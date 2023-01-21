@@ -9,7 +9,7 @@ use rcgen::generate_simple_self_signed;
 use std::net::{TcpStream, TcpListener, SocketAddr, IpAddr, Ipv4Addr};
 use std::sync::Arc;
 use rust_web_server::entry_point::{bootstrap, get_ip_port_thread_count, set_default_values};
-use rust_web_server::ext::file_ext::FileExt;
+use file_ext::FileExt;
 use rust_web_server::header::Header;
 use rust_web_server::request::Request;
 use rust_web_server::response::Response;
