@@ -17,37 +17,47 @@ There is a mirror for downloads on [Google Drive](https://drive.google.com/drive
 > sudo cp rts /usr/bin
 
 > sudo chmod ug+rwx,o+r /usr/bin/rts
-#### Homebrew macOS
-> brew tap bohdaq/rust-tls-server
 
-> brew install rts
+
+#### Homebrew macOS
+Open **[Rust TLS Server Homebrew formula](https://github.com/bohdaq/homebrew-rust-tls-server)** for details.
+
 
 ### Linux
 > sudo cp rts /usr/bin
 
 > sudo chmod ug+rwx,o+r /usr/bin/rts
+
+
 #### Debian
 > sudo dpkg -i --force-overwrite rts.deb
+
+
 #### RPM
 Replace _YOUR_VERSION_ with version you downloaded.
 > sudo rpm -i --force rts-_YOUR_VERSION_.rpm
+
+
 #### Portage ebuild
 Open **[Rust TLS Server Portage ebuild](https://github.com/bohdaq/rts-portage-ebuild)** for details.
+
+
 #### Pacman package
 Open **[Rust TLS Server Pacman package](https://github.com/bohdaq/rts-arch-package)** for details.
 
+###  Windows
+Copy executable to _C:\WINDOWS\system32_ folder.
+
 ## ARM 64-bit
+
 ### Linux
 > sudo cp rts /usr/bin
 
 > sudo chmod ug+rwx,o+r /usr/bin/rts
 
+
 #### Debian
 > sudo dpkg -i --force-overwrite rts.deb
-
-
-### x86 64-bit Windows
-Copy executable to _C:\WINDOWS\system32_ folder.
 
 
 ### Testing installation
