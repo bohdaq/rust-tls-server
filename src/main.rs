@@ -8,12 +8,14 @@ use openssl::ssl::{SslMethod, SslAcceptor, SslStream, SslFiletype};
 use rcgen::generate_simple_self_signed;
 use std::net::{TcpStream, TcpListener, SocketAddr, IpAddr, Ipv4Addr};
 use std::sync::Arc;
-use rust_web_server::entry_point::{bootstrap, get_ip_port_thread_count, set_default_values};
+use rust_web_server::entry_point::{bootstrap, get_ip_port_thread_count, get_request_allocation_size, set_default_values};
 use file_ext::FileExt;
+use rust_web_server::application::Application;
+use rust_web_server::core::New;
 use rust_web_server::header::Header;
 use rust_web_server::request::Request;
 use rust_web_server::response::Response;
-use rust_web_server::server::Server;
+use rust_web_server::server::{Address, ConnectionInfo, Server};
 use rust_web_server::symbol::SYMBOL;
 use rust_web_server::log::Log;
 use rust_web_server::thread_pool::ThreadPool;
@@ -177,7 +179,33 @@ fn handle_client(mut stream: SslStream<TcpStream>) {
 
 
     let request: Request = boxed_request.unwrap();
-    let (mut response, request) = App::handle_request(request);
+
+    let boxed_peer_addr = stream.get_ref().peer_addr();
+    if boxed_peer_addr.is_err() {
+        eprintln!("\nunable to read peer addr");
+        return;
+    }
+    let peer_addr = boxed_peer_addr.unwrap();
+
+    let (server_ip, server_port, _thread_count) = get_ip_port_thread_count();
+    let client_ip = peer_addr.ip().to_string();
+    let client_port = peer_addr.port() as i32;
+    let request_allocation_size = get_request_allocation_size();
+
+    let connection = ConnectionInfo {
+        client: Address {
+            ip: client_ip.to_string(),
+            port: client_port
+        },
+        server: Address {
+            ip: server_ip,
+            port: server_port
+        },
+        request_size: request_allocation_size,
+    };
+
+    let app = App::new();
+    let mut response = app.execute(&request, &connection).unwrap();
 
     response.headers.push(Header {
         name: Header::_REFERRER_POLICY.to_string(),
