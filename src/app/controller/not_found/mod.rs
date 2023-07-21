@@ -1,19 +1,19 @@
 use file_ext::FileExt;
+use rust_web_server::controller::Controller;
 use rust_web_server::mime_type::MimeType;
 use rust_web_server::range::Range;
 use rust_web_server::request::Request;
 use rust_web_server::response::{Response, STATUS_CODE_REASON_PHRASE};
+use rust_web_server::server::ConnectionInfo;
 
 pub struct NotFoundController;
 
-impl NotFoundController {
-    pub const NOT_FOUND_FILEPATH: &'static str = "404.html";
-
-    pub fn is_matching_request(_request: &Request) -> bool {
+impl Controller for NotFoundController {
+    fn is_matching(_request: &Request, _connection: &ConnectionInfo) -> bool {
         true
     }
 
-    pub fn process_request(_request: &Request, mut response: Response) -> Response {
+    fn process(_request: &Request, mut response: Response, _connection: &ConnectionInfo) -> Response {
         response.status_code = *STATUS_CODE_REASON_PHRASE.n404_not_found.status_code;
         response.reason_phrase = STATUS_CODE_REASON_PHRASE.n404_not_found.reason_phrase.to_string();
 
@@ -53,4 +53,8 @@ impl NotFoundController {
 
         response
     }
+}
+
+impl NotFoundController {
+    pub const NOT_FOUND_FILEPATH: &'static str = "404.html";
 }
