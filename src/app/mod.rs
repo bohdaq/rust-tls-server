@@ -34,13 +34,13 @@ impl Application for App {
             None
         );
 
-        if TlsController::is_matching_request(&request) {
-            response = TlsController::process_request(&request, response);
+        if TlsController::is_matching(&request, &connection) {
+            response = TlsController::process(&request, response, &connection);
             return Ok(response)
         }
 
-        if IndexController::is_matching_request(&request) {
-            response = IndexController::process_request(&request, response);
+        if IndexController::is_matching(&request, &connection) {
+            response = IndexController::process(&request, response, &connection);
             return Ok(response)
         }
 
