@@ -1,19 +1,19 @@
 use file_ext::FileExt;
+use rust_web_server::controller::Controller;
 use rust_web_server::mime_type::MimeType;
 use rust_web_server::range::Range;
 use rust_web_server::request::Request;
 use rust_web_server::response::{Response, STATUS_CODE_REASON_PHRASE};
+use rust_web_server::server::ConnectionInfo;
 
 pub struct ScriptController;
 
-impl ScriptController {
-    pub const SCRIPT_FILEPATH: &'static str = "script.js";
-
-    pub fn is_matching_request(request: &Request) -> bool {
+impl Controller for ScriptController {
+    fn is_matching(request: &Request, _connection: &ConnectionInfo) -> bool {
         request.request_uri == "/script.js"
     }
 
-    pub fn process_request(_request: &Request, mut response: Response) -> Response {
+    fn process(_request: &Request, mut response: Response, _connection: &ConnectionInfo) -> Response {
         response.status_code = *STATUS_CODE_REASON_PHRASE.n200_ok.status_code;
         response.reason_phrase = STATUS_CODE_REASON_PHRASE.n200_ok.reason_phrase.to_string();
 
@@ -53,4 +53,8 @@ impl ScriptController {
 
         response
     }
+}
+
+impl ScriptController {
+    pub const SCRIPT_FILEPATH: &'static str = "script.js";
 }
