@@ -1,6 +1,6 @@
 [package]
 name = "rts"
-version = "9.0.0"
+version = "15.1.0"
 authors = ["Bohdan Tsap <bohdan.tsap@tutanota.com>"]
 repository = "https://github.com/bohdaq/rust-web-server"
 description = "rust-tls-server is a web server capable of serving static content over https."
