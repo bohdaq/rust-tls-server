@@ -14,9 +14,9 @@ There is a mirror for downloads on [Google Drive](https://drive.google.com/drive
 ## x86 64-bit
 
 ### Apple macOS
-> sudo cp rts /usr/bin
+> sudo cp rts /usr/local/bin
 
-> sudo chmod ug+rwx,o+r /usr/bin/rts
+> sudo chmod 777 /usr/local/bin/rts
 
 
 #### Homebrew macOS
@@ -26,7 +26,7 @@ Open **[Rust TLS Server Homebrew formula](https://github.com/bohdaq/homebrew-rus
 ### Linux
 > sudo cp rts /usr/bin
 
-> sudo chmod ug+rwx,o+r /usr/bin/rts
+> sudo chmod 777 /usr/bin/rts
 
 
 #### Debian
@@ -53,7 +53,7 @@ Copy executable to _C:\WINDOWS\system32_ folder.
 ### Linux
 > sudo cp rts /usr/bin
 
-> sudo chmod ug+rwx,o+r /usr/bin/rts
+> sudo chmod 777 /usr/bin/rts
 
 
 #### Debian
